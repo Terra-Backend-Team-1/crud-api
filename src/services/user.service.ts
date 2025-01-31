@@ -26,6 +26,15 @@ class UserService {
 		const user = await this.userModel.create(userData);
 		return user;
 	};
+
+	// update user service
+	public updateUser = async (userData: IUser, id: string): Promise<IUser> => {
+		const user = await this.userModel.findByIdAndUpdate(id, userData);
+		if (!user){
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "User not found");
+		}
+		return user;
+	}
 }
 
 export default UserService;
