@@ -15,7 +15,8 @@ class UserRoutes {
 	private initializeRoutes() {
 		this.router.post(this.path, this.userController.createUser);
 		// other routes for : get, delete, update and get by id
-		this.router.post(this.path + "/:id", this.userController.updateUser);
+		this.router.post(this.path + "/:id", this.userController.updateUser); // update user route
+		this.router.get(this.path + "/:id", this.userController.getUser); // get user by id route
 	}
 }
 

@@ -18,6 +18,22 @@ class UserController {
 		}
 	};
 
+	// get a user  by id
+	public getUser = async (
+		req: Request,
+		resp: Response,
+		next: NextFunction
+	)=> {
+		try{
+			const id: string = req.params.id;
+			const user = await this.userService.getUserById(id);
+			resp.status(StatusCodes.OK).json(user);
+		}catch(error){
+			next(error)
+		}
+
+	}
+	// update user
 	public updateUser = async(
 		req: Request,
 		resp: Response,
