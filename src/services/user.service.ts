@@ -23,6 +23,9 @@ class UserService {
 		if (!userData.lastName)
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "Provide last name");
 
+		if (!userData.age)
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "Provide age");
+
 		const user = await this.userModel.create(userData);
 		return user;
 	};
@@ -30,27 +33,32 @@ class UserService {
 	// update user service
 	public updateUser = async (userData: IUser, id: string): Promise<IUser> => {
 		const user = await this.userModel.findByIdAndUpdate(id, userData);
-		if (!user){
+		if (!user) {
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "User not found");
 		}
 		return user;
-	}
+	};
 	// user service that get a user by id
 	public getUserById = async (id: string): Promise<IUser> => {
 		const user = await this.userModel.findById(id);
-		if (!user){
+		if (!user) {
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "User not found");
 		}
 		return user;
-	}
+	};
 
-	public deleteUser = async (id: string) =>{
+	public getAllUsers = async (): Promise<IUser[]> => {
+		const users = await this.userModel.find();
+		return users;
+	};
+
+	public deleteUser = async (id: string) => {
 		const user = await this.userModel.findByIdAndDelete(id);
-		if (!user){
+		if (!user) {
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "User not found");
 		}
 		return user;
-	}
+	};
 }
 
 export default UserService;

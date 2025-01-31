@@ -19,49 +19,57 @@ class UserController {
 	};
 
 	// get a user  by id
-	public getUser = async (
-		req: Request,
-		resp: Response,
-		next: NextFunction
-	)=> {
-		try{
+	public getUser = async (req: Request, resp: Response, next: NextFunction) => {
+		try {
 			const id: string = req.params.id;
 			const user = await this.userService.getUserById(id);
-			resp.status(StatusCodes.OK).json(user);
-		}catch(error){
-			next(error)
+			resp.status(StatusCodes.OK).json({ data: user, message: "User" });
+		} catch (error) {
+			next(error);
 		}
+	};
 
-	}
-	// update user
-	public updateUser = async(
+	public getAllUsers = async (
 		req: Request,
 		resp: Response,
 		next: NextFunction
-	) =>{
-		try{
-			const id : string   = req.params.id;
-			const user  = await this.userService.updateUser(req.body, id);
+	) => {
+		try {
+			const users = await this.userService.getAllUsers();
+			resp.status(StatusCodes.OK).json({ data: users, message: "All users" });
+		} catch (error) {
+			next(error);
+		}
+	};
+	// update user
+	public updateUser = async (
+		req: Request,
+		resp: Response,
+		next: NextFunction
+	) => {
+		try {
+			const id: string = req.params.id;
+			const user = await this.userService.updateUser(req.body, id);
 			resp.status(StatusCodes.OK).json({ data: user, message: "User updated" });
-		} catch(error){
+		} catch (error) {
 			next(error);
 		}
 	};
 
 	// delete user
-	public deleteUser = async(
+	public deleteUser = async (
 		req: Request,
 		resp: Response,
 		next: NextFunction
-	)=>{
-		try{
+	) => {
+		try {
 			const id = req.params.id;
 			const user = await this.userService.deleteUser(id);
 			resp.status(StatusCodes.OK).json({ data: user, message: "User deleted" });
-		}catch(error){
+		} catch (error) {
 			next(error);
 		}
-	}
+	};
 }
 
 export default UserController;
