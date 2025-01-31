@@ -35,10 +35,17 @@ class UserService {
 		}
 		return user;
 	}
-
 	// user service that get a user by id
 	public getUserById = async (id: string): Promise<IUser> => {
 		const user = await this.userModel.findById(id);
+		if (!user){
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "User not found");
+		}
+		return user;
+	}
+
+	public deleteUser = async (id: string) =>{
+		const user = await this.userModel.findByIdAndDelete(id);
 		if (!user){
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "User not found");
 		}
