@@ -8,12 +8,13 @@ class UserRoutes {
 
 	constructor() {
 		this.initializeRoutes();
-	}
+	};
 
 	private initializeRoutes() {
 		this.router.post(this.path, this.userController.createUser);
 		// other routes for : get, delete, update and get by id
-	}
+		this.router.get(this.path, this.userController.getAllUsers);
+	};
 }
 
 export default UserRoutes;

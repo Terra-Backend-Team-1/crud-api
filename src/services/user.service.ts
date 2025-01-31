@@ -26,6 +26,11 @@ class UserService {
 		const user = await this.userModel.create(userData);
 		return user;
 	};
+
+	public getAllUsers = async (): Promise<IUser[]> => {
+		const users = this.userModel.find();
+		return users;
+	};
 }
 
 export default UserService;
